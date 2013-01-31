@@ -1,0 +1,14 @@
+<?php
+/**
+ * Implements hook_menu
+ */
+function bibdk_tracelog_menu() {
+
+}
+
+/**
+ * implements hook_watchdog
+ */
+function bibdk_tracelog_watchdog(array $log_entry){
+
+}

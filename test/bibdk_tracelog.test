@@ -1,0 +1,27 @@
+<?php
+/**
+ *
+ */
+class BibdkTraceLogUnitTestCase extends DrupalUnitTestCase {
+
+  public function setUp() {
+    parent::setUp();
+  }
+
+  public function testVerboseClass(){
+
+  }
+
+}
+
+class BibdkTraceLogWebTestCase extends DrupalWebTestCase {
+
+  public function setUp() {
+    parent::setUp();
+  }
+
+  public function testVerboseClass(){
+
+  }
+
+}

@@ -1,0 +1,6 @@
+name = Bibliotek Tracelog
+description = Enables tracelog through the Verbose class
+package = "Bibliotek.dk"
+core = 7.x
+files[] = test/bibdk_tracelog.test
+files[] = lib/verbose_class.php
