@@ -16,11 +16,53 @@ class BibdkTraceLogUnitTestCase extends DrupalUnitTestCase {
 
 class BibdkTraceLogWebTestCase extends DrupalWebTestCase {
 
-  public function setUp() {
-    parent::setUp();
+  public static function getInfo() {
+    return array(
+      'name' => t('Bibdk Tracelog Test'),
+      'description' => t('Webtest of bibdk_tracelog functionality'),
+      'group' => t('bibliotek.dk'),
+    );
   }
 
-  public function testVerboseClass(){
+
+  public function setUp() {
+    $this->profile = 'minimal';
+    parent::setUp('bibdk_tracelog');
+  }
+
+  public function testRunner(){
+    $this->testAdminPage();
+  }
+
+  private function testAdminPage(){
+    $this->drupalGet('/admin/config/serviceclient/tracelog');
+    // No Access without permissions
+    $this->assertText('Access denied');
+    // Create user with permissions
+    $admin = $this->drupalCreateUser(array('administer site configuration'));
+    $this->drupalLogin($admin);
+    $this->drupalGet('/admin/config/serviceclient/tracelog');
+    // Check if settings fields exists
+    $this->assertField('tracelog_state', 'checkbox exists');
+    $this->assertField('tracelog_file_url', 'file field exists');
+
+    // Test that settings have not been set
+    $tracelog_state = variable_get('tracelog_state');
+    $tracelog_file_url = variable_get('tracelog_file_url');
+    $this->assertNotEqual($tracelog_state, 1, 'State is set to 1');
+    $this->assertNotEqual($tracelog_file_url, 'test_file_url', 'url is set to test_file_url');
+
+    // Set settings
+    $this->drupalPost(Null, array(
+      'tracelog_state' => 1,
+      'tracelog_file_url' => 'test_file_url'
+    ), t('Save configuration'));
+
+    // Test that settings have been set
+    $tracelog_state = variable_get('tracelog_state');
+    $tracelog_file_url = variable_get('tracelog_file_url');
+    $this->assertEqual($tracelog_state, 1, 'State is set to 1');
+    $this->assertEqual($tracelog_file_url, 'test_file_url', 'url is set to test_file_url');
 
   }
 

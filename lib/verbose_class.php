@@ -135,8 +135,9 @@ class verbose {
         fwrite($fp, $vtext . self::$my_pid . ' ' . date(self::$date_format) . ' ' . self::$tracking_id . ' ' . $str);
         fclose($fp);
       }
-      else
-        die('FATAL: Cannot open ' . self::$verbose_file_name);
+      else {
+        throw new Exception('FATAL: Cannot open ' . self::$verbose_file_name);
+      }
     }
   }
 
