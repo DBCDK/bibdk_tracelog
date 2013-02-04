@@ -24,7 +24,7 @@ function bibdk_tracelog_menu() {
   return $items;
 }
 
-// Maybe we can use this if we want to log page render time aswell
+// Maybe we can use this if we want to log page render time as well
 /*function bibdk_tracelog_page_alter($page){
   $devel_timers = module_invoke_all('ding_devel_timers');
 }*/
@@ -47,9 +47,14 @@ function bibdk_tracelog_watchdog(array $log_entry){
   }
 }
 
+/**
+ *
+ * Basic logging wrapper for the verbose class
+ * @param $message
+ * @param $type
+ * @param null $file
+ */
 function bibdk_tracelog_log($message, $type, $file = null){
-  if (!variable_get('tracelog_state'))
-    return;
   if (!$file){
     $file_name = variable_get('tracelog_file_name', "tracelog.log");
     $file_dir = variable_get('tracelog_file_url', null);
@@ -73,7 +78,7 @@ function _bibdk_tracelog_message_parse($log_entry){
       $type = 'ERROR';
     }
   else {
-    $message = '@action:: Total:@time Link:@link';
+    $message = '@action:: Total:@time Wsdl:@wsdlUrl Link:@link';
     $type = 'TIMER';
   }
   return array(
