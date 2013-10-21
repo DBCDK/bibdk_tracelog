@@ -1,6 +1,4 @@
 <?php
-module_load_include('php', 'bibdk_tracelog', 'lib/verbose_class');
-// Test, save file at, test save file
 
 /**
  * Implements hook_menu
@@ -55,6 +53,7 @@ function bibdk_tracelog_watchdog(array $log_entry){
  * @param null $file
  */
 function bibdk_tracelog_log($message, $type, $file = null){
+  module_load_include('php', 'bibdk_tracelog', 'lib/verbose_class');
   if (!$file){
     $file_name = variable_get('tracelog_file_name', "tracelog.log");
     $file_dir = variable_get('tracelog_file_url', null);
